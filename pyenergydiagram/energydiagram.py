@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
 """
-Created on Mon Jan 23 13:09:19 2017
-
 --- Energy profile diagram---
+
 This is a simple script to plot energy profile diagram using matplotlib.
+
 E|          4__  
 n|   2__    /  \  
 e|1__/  \__/5   \
 r|  3\__/       6\__
 g|
 y|
-@author: Giacomo Marchioro giacomomarchioro@outlook.com
+
+This source is based upon the work of Giacomo Marchioro <giacomomarchioro@outlook.com>
+Github link: https://github.com/giacomomarchioro/PyEnergyDiagrams
+
+@author Ivo Filot <ivo@ivofilot.nl>
 
 """
 import matplotlib.pyplot as plt
@@ -175,7 +179,7 @@ class ED:
         '''
         fig = plt.figure()
         ax = fig.add_subplot(111,aspect='equal')
-        ax.set_ylabel( "Energy / $kcal$ $mol^{-1}$")
+        ax.set_ylabel( "Energy [kJ $\cdot$ mol$^{-1}$]")
         ax.axes.get_xaxis().set_visible(False)
         ax.spines['top'].set_visible(False)
         ax.spines['right'].set_visible(False)
@@ -190,13 +194,13 @@ class ED:
         for level in data:
             start = level[1]*(self.dimension+self.space)
             ax.hlines(level[0],start,start+self.dimension, color = level[4])
-            ax.text(start+self.dimension/2., #X
-                    level[0]+self.offset,  #Y
-                    level[3], # self.top_texts 
+            ax.text(start+self.dimension/2.,    # X
+                    level[0]+self.offset,       # Y
+                    level[3],                   # self.top_texts 
                     horizontalalignment='center')
-            ax.text(start+self.dimension/2., # X
-                    level[0]-self.offset*2, # Y
-                    level[2], # self.bottom_text
+            ax.text(start+self.dimension/2.,    # X
+                    level[0]-self.offset*2,     # Y
+                    level[2],                   # self.bottom_text
                     horizontalalignment='center',
                     color= self.color_bottom_text)
         if show_IDs:
@@ -242,8 +246,7 @@ class ED:
             x,y,boxes,electrons,side,spacing_f = box
             plot_orbital_boxes(ax,x,y,boxes,electrons,side,spacing_f)
         
-        self.fig = fig
-        self.ax = ax
+        return (plt,fig,ax)
  
 if __name__ == '__main__':
         a = ED()
